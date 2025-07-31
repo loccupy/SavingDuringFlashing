@@ -26,120 +26,7 @@ class Ui(QWidget):
         self.initUI()
 
     def initUI(self):
-        self.setStyleSheet('''
-        /* Общие настройки */
-        QWidget {
-            font-family: 'Arial';
-            font-size: 12px;
-            background-color: #222;
-            color: #ccc;
-        }
-
-        /* Стили для чекбоксов */
-        QCheckBox {
-            margin-right: 20px;
-            color: #ddd;
-            spacing: 5px; /* Расстояние между галочкой и текстом */
-        }
-
-        QCheckBox::indicator {
-            width: 15px;
-            height: 15px;
-            border: 1px solid #444;
-            border-radius: 2px;
-            background-color: #333;
-        }
-
-        QCheckBox::indicator:checked {
-            background-color: #4caf50;
-            border: 1px solid #4caf50;
-        }
-
-        QCheckBox::indicator:checked:hover {
-            background-color: #3e8e41;
-        }
-
-        QCheckBox::indicator:hover {
-            border: 1px solid #4caf50;
-        }
-
-        /* Стили для меток */
-        QLabel {
-            color: #ddd;
-            font-weight: bold;
-        }
-
-        /* Стили для полей ввода */
-        QLineEdit {
-            padding: 5px;
-            border: 1px solid #444;
-            border-radius: 4px;
-            background-color: #333;
-            color: #fff;
-        }
-
-        /* Стили для текстового поля */
-        QTextEdit {
-            background-color: #333;
-            border: 1px solid #444;
-            padding: 10px;
-            margin-top: 15px;
-            color: #fff;
-        }
-
-        /* Стили для кнопок */
-        QPushButton {
-            background-color: #4caf50;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 4px;
-            margin: 5px;
-        }
-
-        /* Стили для состояний кнопок */
-        QPushButton:hover {
-            background-color: #3e8e41;
-        }
-
-        QPushButton:pressed {
-            background-color: #2e6d32;
-        }
-
-        /* Стили для групповых блоков */
-        QGroupBox {
-            border: 1px solid #444;
-            border-radius: 4px;
-            padding: 10px;
-            margin-bottom: 15px;
-            background-color: #333;
-        }
-
-        QGroupBox::title {
-            subcontrol-position: top left;
-            padding: 0 10px;
-            background-color: #444;
-            border-bottom: 1px solid #555;
-            color: #fff;
-        }
-
-        /* Дополнительные стили для горизонтального расположения */
-        QPushButton + QPushButton {
-            margin-left: 10px;
-        }
-
-        /* Стили для списка файлов */
-        QListWidget {
-            background-color: #333;
-            color: #fff;
-            border: 1px solid #444;
-            border-radius: 4px;
-        }
-
-        QListWidget::item:selected {
-            background-color: #555;
-        }
-        ''')
+        self.applyDarkTheme()
 
         self.layout = QVBoxLayout(self)
 
@@ -322,3 +209,43 @@ class Ui(QWidget):
         self.text_edit.setTextCursor(cursor)
         self.text_edit.ensureCursorVisible()
         QApplication.processEvents()
+
+    def applyDarkTheme(self):
+        # Определяем стили для темной темы
+        dark_stylesheet = """
+        QWidget {
+            background-color: #2c313c;
+            color: #ffffff;
+        }
+
+        QLineEdit {
+            background-color: #363d47;
+            color: #ffffff;
+            border: 1px solid #444950;
+            border-radius: 4px;
+            padding: 5px;
+        }
+
+        QLineEdit:focus {
+            border: 1px solid #61dafb;
+        }
+
+        QPushButton {
+            background-color: #363d47;
+            color: #ffffff;
+            border: 1px solid #444950;
+            border-radius: 4px;
+            padding: 5px 10px;
+        }
+
+        QPushButton:hover {
+            background-color: #444950;
+        }
+
+        QPushButton:pressed {
+            background-color: #2c313c;
+        }
+        """
+
+        # Применяем стиль к приложению
+        self.setStyleSheet(dark_stylesheet)
