@@ -186,36 +186,44 @@ class Ui(QWidget):
         self.setMinimumSize(300, 530)
 
     def read_config(self):
-        flag = self.checkbox.isChecked()
-        if self.main_com_port_field.text() == "":
-            QMessageBox.warning(self, "Ошибка", "Введите номер COM порта соединения!")
-            return
-        else:
-            connect.COM = "COM" + self.main_com_port_field.text()
         try:
-            connect.BAUDRATE = int(self.main_speed_field.text())
-        except Exception as e:
-            QMessageBox.warning(self, "Ошибка", "Введите скорость соединения!")
-            return
+            flag = self.checkbox.isChecked()
+            if self.main_com_port_field.text() == "":
+                QMessageBox.warning(self, "Ошибка", "Введите номер COM порта соединения!")
+                return
+            else:
+                connect.COM = "COM" + self.main_com_port_field.text()
+            try:
+                connect.BAUDRATE = int(self.main_speed_field.text())
+            except Exception as e:
+                QMessageBox.warning(self, "Ошибка", "Введите скорость соединения!")
+                return
 
-        file_name_read = self.showDialog() + ".xlsx"
-        read_configuration_and_write_excel(file_name_read, flag)
+            file_name_read = self.showDialog() + ".xlsx"
+            read_configuration_and_write_excel(file_name_read, flag)
+        except Exception as e:
+            print(e)
+            return
 
     def write_config(self):
-        flag = self.checkbox.isChecked()
-        if self.main_com_port_field.text() == "":
-            QMessageBox.warning(self, "Ошибка", "Введите номер COM порта соединения!")
-            return
-        else:
-            connect.COM = "COM" + self.main_com_port_field.text()
         try:
-            connect.BAUDRATE = int(self.main_speed_field.text())
-        except Exception as e:
-            QMessageBox.warning(self, "Ошибка", "Введите скорость соединения!")
-            return
+            flag = self.checkbox.isChecked()
+            if self.main_com_port_field.text() == "":
+                QMessageBox.warning(self, "Ошибка", "Введите номер COM порта соединения!")
+                return
+            else:
+                connect.COM = "COM" + self.main_com_port_field.text()
+            try:
+                connect.BAUDRATE = int(self.main_speed_field.text())
+            except Exception as e:
+                QMessageBox.warning(self, "Ошибка", "Введите скорость соединения!")
+                return
 
-        file_name_read = self.showDialog() + ".xlsx"
-        configure_meter_and_write_excel(file_name_read, flag)
+            file_name_read = self.showDialog() + ".xlsx"
+            configure_meter_and_write_excel(file_name_read, flag)
+        except Exception as e:
+            print(e)
+            return
 
     def compare_files(self):
         if not self.fileListWidget:

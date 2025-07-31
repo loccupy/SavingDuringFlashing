@@ -15,11 +15,12 @@ def open_connection():
                                logicalAddress=1,
                                clientAddress=48,
                                baudRate=BAUDRATE)
-        print("Счетчик подключен")
-        reader = GXDLMSReader(settings.client, settings.media, settings.trace, settings.invocationCounter)
 
+        reader = GXDLMSReader(settings.client, settings.media, settings.trace, settings.invocationCounter)
         settings.media.open()
         reader.initializeConnection()
+        print("Счетчик подключен")
         return reader
     except Exception as e:
         print(f"Ошибка на этапе подключения к счетчику: {e}")
+        raise
