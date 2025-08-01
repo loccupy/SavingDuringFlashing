@@ -116,12 +116,21 @@ class Ui(QWidget):
         if not self.fileListWidget:
             QMessageBox.warning(self, "Ошибка", "Файлы для сравнения не выбраны!")
             return
-        file_1 = self.fileListWidget.item(0).text()
-        file_2 = self.fileListWidget.item(1).text()
+        try:
+            file_1 = self.fileListWidget.item(0).text()
+            file_2 = self.fileListWidget.item(1).text()
 
-        output_file = self.showDialog() + ".xlsx"
 
-        compare_excel_files(file_1, file_2, output_file)
+            if not self.showDialog():
+                QMessageBox.warning(self, "Ошибка", "Введите название файла!")
+                return
+            output_file = self.showDialog() + ".xlsx"
+            compare_excel_files(file_1, file_2, output_file)
+        except Exception as e:
+            print(e)
+            return
+
+
 
     def create_fields_for_connect(self):
         self.master_meter_section = QGroupBox("Настройки подключения")
@@ -163,19 +172,26 @@ class Ui(QWidget):
         text, ok = QInputDialog.getText(self, 'Диалог ввода', 'Назовите файл:')
         if ok:
             return text
+        else:
+            return
 
     def addFiles(self):
         # Открытие диалогового окна выбора файлов
-        files, _ = QFileDialog.getOpenFileNames(
-            self,
-            "Выберите Excel файлы",
-            "",
-            "Excel файлы (*.xlsx)"
-        )
+        try:
+            files, _ = QFileDialog.getOpenFileNames(
+                self,
+                "Выберите Excel файлы",
+                "",
+                "Excel файлы (*.xlsx)"
+            )
+        except:
+            return
 
         # Проверяем количество выбранных файлов
         if len(files) > 2:
             QMessageBox.warning(self, "Ошибка", "Можно выбрать только 2 файла")
+            return
+        elif len(files) <= 0:
             return
 
         # Проверка, были ли выбраны файлы
