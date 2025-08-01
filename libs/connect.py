@@ -6,8 +6,8 @@ BAUDRATE = 115200
 
 
 def open_connection():
+    settings = GXSettings()
     try:
-        settings = GXSettings()
         settings.getParameters("COM", COM,
                                password="1234567898765432",
                                authentication="High",
@@ -22,5 +22,6 @@ def open_connection():
         print("Счетчик подключен")
         return reader
     except Exception as e:
+        settings.media.close()
         print(f"Ошибка на этапе подключения к счетчику: {e}")
         raise
