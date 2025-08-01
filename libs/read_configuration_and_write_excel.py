@@ -15,8 +15,8 @@ from libs.read_not_conf_registers import read_not_config_registers
 
 
 def read_configuration_and_write_excel(file_name_read, flag):
-    reader = open_connection()
     try:
+        reader = open_connection()
         device_type = reader.deviceType
         print(f"Считан тип счетчика - {device_type}")
         reader.close()
@@ -72,4 +72,4 @@ def read_configuration_and_write_excel(file_name_read, flag):
 
     except Exception as e:
         print(f"Произошла ошибка на этапе считывания всех конфигураций: {e}")
-        reader.close()
+        raise

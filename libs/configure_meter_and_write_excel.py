@@ -13,8 +13,8 @@ from libs.read_not_conf_registers import read_not_config_registers
 
 
 def configure_meter_and_write_excel(file_name_config_and_read, flag):
-    reader = open_connection()
     try:
+        reader = open_connection()
         device_type = reader.deviceType
         print(f"Считан тип счетчика - {device_type}")
         reader.close()
@@ -69,4 +69,4 @@ def configure_meter_and_write_excel(file_name_config_and_read, flag):
             print("Счетчик успешно сконфигурирован как 1ph или 3ph")
     except Exception as e:
         print(f"Произошла ошибка на этапе конфигурации и создания excel файла: {e}")
-        reader.close()
+        raise

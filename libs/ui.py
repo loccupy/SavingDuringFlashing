@@ -1,3 +1,4 @@
+import datetime
 import sys
 from PyQt5.QtWidgets import QApplication, QWidget, QVBoxLayout, QPushButton, QTextEdit, QLineEdit, QHBoxLayout, \
     QCheckBox, QGroupBox, QListWidget, QFileDialog, QMessageBox, QInputDialog
@@ -113,24 +114,19 @@ class Ui(QWidget):
             return
 
     def compare_files(self):
-        if not self.fileListWidget:
+        if not self.fileListWidget or self.fileListWidget.count() != 2:
             QMessageBox.warning(self, "Ошибка", "Файлы для сравнения не выбраны!")
             return
         try:
+
             file_1 = self.fileListWidget.item(0).text()
             file_2 = self.fileListWidget.item(1).text()
 
-
-            if not self.showDialog():
-                QMessageBox.warning(self, "Ошибка", "Введите название файла!")
-                return
             output_file = self.showDialog() + ".xlsx"
             compare_excel_files(file_1, file_2, output_file)
         except Exception as e:
             print(e)
             return
-
-
 
     def create_fields_for_connect(self):
         self.master_meter_section = QGroupBox("Настройки подключения")
@@ -171,8 +167,9 @@ class Ui(QWidget):
     def showDialog(self):
         text, ok = QInputDialog.getText(self, 'Диалог ввода', 'Назовите файл:')
         if ok:
-            return text
+            return text + '_' + datetime.datetime.now().strftime("%d-%m-%y_%H-%M-%S")
         else:
+            QMessageBox.warning(self, "Ошибка", "Некорректное название файла!")
             return
 
     def addFiles(self):
